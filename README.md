@@ -1,61 +1,35 @@
----
-name: crawl-for-ai
-description: Web scraping using local Crawl4AI instance. Use for fetching full page content with JavaScript rendering. Better than Tavily for complex pages. Unlimited usage.
-version: 1.0.1
-author: Ania
-requiresEnv:
-  - CRAWL4AI_URL
-metadata:
-  clawdbot:
-    emoji: "🕷️"
-    requires:
-      bins: ["node"]
----
+# crawl-for-ai — Full-page web scraping with JavaScript rendering
 
-# Crawl4AI Web Scraper
+> Scrapes any web page — including JavaScript-heavy SPAs — via a local Crawl4AI instance. Faster and more accurate than cloud scrapers for complex pages, with unlimited local usage.
 
-Local Crawl4AI instance for full web page extraction with JavaScript rendering.
+[![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-blueviolet)](https://github.com/NachaFromMars)
 
-## Endpoints
-
-**Proxy (port 11234)** — Clean output, OpenWebUI-compatible
-- Returns: `[{page_content, metadata}]`
-- Use for: Simple content extraction
-
-**Direct (port 11235)** — Full output with all data
-- Returns: `{results: [{markdown, html, links, media, ...}]}`
-- Use for: When you need links, media, or other metadata
-
-## Usage
-
-```bash
-# Via script
-node {baseDir}/scripts/crawl4ai.js "url"
-node {baseDir}/scripts/crawl4ai.js "url" --json
-```
-
-**Script options:**
-- `--json` — Full JSON response
-
-**Output:** Clean markdown from the page.
-
-## Configuration
-
-**Required environment variable:**
-
-- `CRAWL4AI_URL` — Your Crawl4AI instance URL (e.g., `http://localhost:11235`)
-
-**Optional:**
-
-- `CRAWL4AI_KEY` — API key if your instance requires authentication
+## Overview
+crawl-for-ai connects to a local Crawl4AI instance to extract full page content with JavaScript rendering. It exposes two endpoints — a clean proxy output and a full-data direct output — and a Node.js script wrapper for quick use. Because it runs locally, there are no rate limits and no per-request costs. It outperforms simpler fetch-based scrapers on JS-rendered dashboards, SPAs, and dynamic content.
 
 ## Features
+- **Proxy endpoint** (port 11234) — clean `[{page_content, metadata}]` output
+- **Direct endpoint** (port 11235) — full `{results:[{markdown, html, links, media, ...}]}` output
+- **Script** — `node scripts/crawl4ai.js "url"` + `--json` for raw response
+- **JS rendering** — handles React, Vue, Angular SPAs
+- **Unlimited** — local instance, no API quotas
 
-- **JavaScript rendering** — Handles dynamic content
-- **Unlimited usage** — Local instance, no API limits
-- **Full content** — HTML, markdown, links, media, tables
-- **Better than Tavily** for complex pages with JS
+## Usage / Quick Start
+```bash
+# Set required env var
+export CRAWL4AI_URL="http://localhost:11235"
 
-## API
+# Scrape a page
+node scripts/crawl4ai.js "https://example.com"
+node scripts/crawl4ai.js "https://example.com" --json
+```
 
-Uses your local Crawl4AI instance REST API. Auth header only sent if `CRAWL4AI_KEY` is set.
+## Trigger Keywords (OpenClaw)
+crawl page, scrape website, fetch full page content, extract with JS rendering
+
+## Related Skills
+- [ddg-web-search](https://github.com/NachaFromMars/ddg-web-search) — lightweight search without a local instance
+- [playwright-scraper-skill](https://github.com/NachaFromMars/playwright-scraper-skill) — browser-based scraping alternative
+
+---
+Part of the [NachaFromMars](https://github.com/NachaFromMars) OpenClaw skill ecosystem.
